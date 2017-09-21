@@ -22,3 +22,11 @@ Bice.HarmonicMean<-function(x) {
 Bice.ArithmeticMean<-function(x) {
   sum(x)/length(x)
 }
+
+#function to show all means in a summary
+Bice.Summary<-function(x) {
+ Bice.Titles<-c("Geometric Mean","Natural Anti Log","Harmonic Mean","Arithmetic Mean")
+ Bice.Vaules<-c(Bice.GeometricMean(x),Bice.NaturalAntiLog(x),Bice.HarmonicMean(x),Bice.ArithmeticMean(x))
+ Bice.Array<-array(c(Bice.Titles,Bice.Vaules), dim = c(length(Bice.Titles),2))
+ print(Bice.Array)
+}
