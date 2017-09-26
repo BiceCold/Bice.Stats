@@ -30,3 +30,22 @@ Bice.Summary<-function(x) {
  Bice.Array<-array(c(Bice.Titles,Bice.Vaules), dim = c(length(Bice.Titles),2))
  print(Bice.Array)
 }
+
+#function to find degrees of freedom
+Bice.DegreesOfFreedom<-function(x) {
+  length(x)-1
+}
+
+#Variance Ratio Formula Using Means x and y
+Bice.VarianceRatio<-function(x,y) {
+  if(x>(4*y))     print("Variance is significant")
+  else if(y>(x*4)) print("Variance is significant")
+  else            print("variance is not significant")
+}
+
+#fetches the critical value of F
+Bice.CriticalF<-function(x,y,z){
+mylm <- lm(x~y, data = z)
+myanova <- anova(mylm)
+cbind(myanova, 'Critical Value Of F' = qf(1-.05, myanova[1,1], myanova[2,1]))
+}
