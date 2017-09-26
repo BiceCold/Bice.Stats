@@ -43,9 +43,11 @@ Bice.VarianceRatio<-function(x,y) {
   else            print("variance is not significant")
 }
 
+
 #fetches the critical value of F
 Bice.CriticalF<-function(x,y,z){
-mylm <- lm(x~y, data = z)
-myanova <- anova(mylm)
-cbind(myanova, 'Critical Value Of F' = qf(1-.05, myanova[1,1], myanova[2,1]))
+  Bice.LM <- lm(x~y, data = z)
+  Bice.Anova <- anova(Bice.LM)
+  CF<-qf(1-.05, Bice.Anova[1,1], Bice.Anova[2,1])
+  print(CF)
 }
