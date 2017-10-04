@@ -51,3 +51,12 @@ Bice.CriticalF<-function(x,y,z){
   CF<-qf(1-.05, Bice.Anova[1,1], Bice.Anova[2,1])
   print(CF)
 }
+
+#Gets the SST of 2 vectors
+Bice.Corrected.SST <- function(x, y) {
+    n.a<-length(y)
+    sum.squared.a <- sum(y ^ 2)
+    sum.a <- sum(y)
+    SST <- sum.squared.a - (sum.a ^ 2 / n.a)
+    SST
+}
