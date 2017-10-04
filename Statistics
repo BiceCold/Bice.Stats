@@ -45,18 +45,86 @@ Bice.VarianceRatio<-function(x,y) {
 
 
 #fetches the critical value of F
-Bice.CriticalF<-function(x,y,z){
-  Bice.LM <- lm(x~y, data = z)
+Bice.CriticalF<-function(x,y,data.z){
+  Bice.LM <- lm(x~y, data = data.z)
   Bice.Anova <- anova(Bice.LM)
   CF<-qf(1-.05, Bice.Anova[1,1], Bice.Anova[2,1])
   print(CF)
 }
 
+
 #Gets the SST of 2 vectors
 Bice.SST <- function(x, y) {
-    n.a<-length(y)
-    sum.squared.a <- sum(y ^ 2)
-    sum.a <- sum(y)
-    SST <- sum.squared.a - (sum.a ^ 2 / n.a)
+    n.y<-length(y)
+    sum.squared.y <- sum(y ^ 2)
+    sum.y <- sum(y)
+    SST <- sum.squared.y - (sum.y ^ 2 / n.y)
     SST
+}
+
+#Gets the SSXY of 2 vectors
+
+Bice.SSXY <- function(x, y) {
+    sum.combo <- sum(y * x)
+    sum.y <- sum(y)
+    sum.x <- sum(x)
+    n.y <- length(y)
+    SSXY <- sum.combo - ((sum.y * sum.x) / n.y)
+    SSXY
+}
+
+#Gets the SSX of 2 vectors
+
+Bice.SSX <- function(x, y) {
+    sum.x.squared <- sum(x ^ 2)
+    sum.x <- sum(x)
+    n.y <- length(y)
+    SSX <- sum.x.squared - (sum.x ^ 2 / n.y)
+    SSX
+    }
+
+#Gets the slope of the line related to the 2 vectors
+Bice.Slope.ANCOVA <- function(x, y) {
+    sum.combo <- sum(y * x)
+    sum.y <- sum(y)
+    sum.x <- sum(x)
+    n.y <- length(y)
+    SSXY <- sum.combo - ((sum.y * sum.x) / n.y)
+    sum.x.squared <- sum(x ^ 2)
+    SSX <- sum.x.squared - (sum.x ^ 2 / n.y)
+    b <- SSXY / SSX
+    b
+}
+
+#Gets the SSR of the 2 vectors
+
+Bice.SSR <- function(x, y) {
+    sum.combo <- sum(y * x)
+    sum.y <- sum(y)
+    sum.x <- sum(x)
+    n.y <- length(y)
+    SSXY <- sum.combo - ((sum.y * sum.x) / n.y)
+    sum.x.squared <- sum(x ^ 2)
+    SSX <- sum.x.squared - (sum.x ^ 2 / n.y)
+    b <- SSXY / SSX
+    SSR <- b * SSXY
+    SSR
+}
+
+#Gets the SSE of 2 vectors
+
+Bice.SSE <- function(x, y) {
+    n.y <- length(y)
+    sum.squared.y <- sum(y ^ 2)
+    sum.y <- sum(y)
+    SST <- sum.squared.y - (sum.y ^ 2 / n.y)
+    sum.combo <- sum(y * x)
+    sum.x <- sum(x)
+    SSXY <- sum.combo - ((sum.y * sum.x) / n.y)
+    sum.x.squared <- sum(x ^ 2)
+    SSX <- sum.x.squared - (sum.x ^ 2 / n.y)
+    b <- SSXY / SSX
+    SSR <- b * SSXY
+    SSE <- SST - SSR
+    SSE
 }
