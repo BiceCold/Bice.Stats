@@ -53,7 +53,7 @@ Bice.CriticalF<-function(x,y,z){
 }
 
 #Gets the SST of 2 vectors
-Bice.Corrected.SST <- function(x, y) {
+Bice.SST <- function(x, y) {
     n.a<-length(y)
     sum.squared.a <- sum(y ^ 2)
     sum.a <- sum(y)
